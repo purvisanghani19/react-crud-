@@ -1,19 +1,38 @@
-import React from 'react'
-import Form from 'react-bootstrap/Form';
+import React, { useState } from 'react'
 
 const Home = () => {
+
+
+  const [message, setmessage] = useState('');
+  const [countryList, setCountryList] = useState([]);
+  // console.log('message', message)
+
+  const handlechange = (e) => {
+    setmessage(e.target.value);
+  }
+
+  const buttonclick = (e) => {
+    e.preventDefault();
+
+    if (message.trim() !== '') {
+      setCountryList([...countryList, message]);
+      setmessage('');
+    }
+  }
+
   return (
     <>
-      <Form>
-        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control type="email" placeholder="name@example.com" />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-          <Form.Label>Example textarea</Form.Label>
-          <Form.Control as="textarea" rows={3} />
-        </Form.Group>
-      </Form>
+      <div style={{ margin: "30px" }}>
+        <input type="text" id="fname" name="message" value={message} onChange={handlechange} />
+        <button style={{ marginLeft: "20px" }} onClick={buttonclick}>click me</button>
+
+        <ul>
+          {countryList.map((country, index) => (
+            <li key={index}>{country}</li>
+          ))}
+        </ul>
+
+      </div>
     </>
   )
 }
